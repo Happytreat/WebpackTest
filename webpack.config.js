@@ -2,13 +2,14 @@ const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'bundle.[contenthash].js',
     path: path.resolve(__dirname, './dist'),
-    publicPath: 'dist/'
+    publicPath: ''
     // publicPath: 'https://webpacktesttutorial.com'
   },
   mode: 'none',
@@ -53,7 +54,7 @@ module.exports = {
     }),
     // Cleans all the files in ./dist
     // before creating new bundle/style.css files
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
     // E.g. if you want to clean another folder build
     // new CleanWebpackPlugin({
     //   cleanOnceBeforeBuildPatterns: [
@@ -61,5 +62,6 @@ module.exports = {
     //     path.join(process.cwd(), 'build/**/*')
     //   ]
     // })
+    new HtmlWebpackPlugin()
   ]
 };
