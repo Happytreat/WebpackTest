@@ -8,6 +8,7 @@ module.exports = {
   output: {
     // content hash for browser caching
     filename: 'bundle.[contenthash].js',
+    // has to be absolute path
     path: path.resolve(__dirname, './dist'),
     publicPath: './dist/'
     // publicPath: 'https://webpacktesttutorial.com'

@@ -7,10 +7,15 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './dist'),
-    publicPath: './dist/'
+    publicPath: ''
     // publicPath: 'https://webpacktesttutorial.com'
   },
   mode: 'development',
+  devServer: {
+    contentBase: path.resolve(__dirname, './dist'),
+    index: 'index.html',
+    port: 9000
+  },
   module: {
     rules: [
       {
@@ -66,7 +71,7 @@ module.exports = {
       title: 'Webpack Test',
       description: 'This is my first webpack test run project.',
       template: 'src/index.hbs',
-      filename: '../index.html'
+      filename: 'index.html'
     })
   ]
 };
