@@ -9,7 +9,7 @@ module.exports = {
   output: {
     filename: 'bundle.[contenthash].js',
     path: path.resolve(__dirname, './dist'),
-    publicPath: ''
+    publicPath: './dist/'
     // publicPath: 'https://webpacktesttutorial.com'
   },
   mode: 'none',
@@ -44,7 +44,13 @@ module.exports = {
             plugins: ['transform-class-properties']
           }
         }
-      }
+      },
+      {
+        test: /\.hbs$/,
+        use: [
+          'handlebars-loader'
+        ]
+      },
     ]
   },
   plugins: [
@@ -64,6 +70,8 @@ module.exports = {
     // })
     new HtmlWebpackPlugin({
       title: 'Webpack Test',
+      description: 'This is my first webpack test run project.',
+      template: 'src/index.hbs',
       filename: '../index.html'
     })
   ]
