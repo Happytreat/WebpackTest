@@ -1,5 +1,4 @@
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -7,12 +6,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/index.js',
   output: {
+    // content hash for browser caching
     filename: 'bundle.[contenthash].js',
     path: path.resolve(__dirname, './dist'),
     publicPath: './dist/'
     // publicPath: 'https://webpacktesttutorial.com'
   },
-  mode: 'none',
+  mode: 'production',
   module: {
     rules: [
       {
@@ -54,7 +54,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new UglifyJsPlugin(),
     new MiniCssExtractPlugin({
       filename: 'styles.[contenthash].css'
     }),
