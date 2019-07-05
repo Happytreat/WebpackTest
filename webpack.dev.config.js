@@ -3,10 +3,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/hello-world.js',
+  entry: {
+    'hello-world': './src/hello-world.js',
+    'kiwi': './src/kiwi.js'
+  },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, './dist'),
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist'),
     publicPath: ''
     // publicPath: 'https://webpacktesttutorial.com'
   },
@@ -57,21 +60,20 @@ module.exports = {
     ]
   },
   plugins: [
-    // Cleans all the files in ./dist
-    // before creating new bundle/style.css files
     new CleanWebpackPlugin(),
-    // E.g. if you want to clean another folder build
-    // new CleanWebpackPlugin({
-    //   cleanOnceBeforeBuildPatterns: [
-    //     '**/*', // all files in ./dist regardless of nesting
-    //     path.join(process.cwd(), 'build/**/*')
-    //   ]
-    // })
     new HtmlWebpackPlugin({
-      title: 'Webpack Test',
-      description: 'This is my first webpack test run project.',
+      title: 'Hello-world',
+      description: 'This is my first webpack test run project: hello-world page',
       template: 'src/page-template.hbs',
-      filename: 'hello-world.js.html'
+      filename: '../hello-world.html',
+      chunks: ['hello-world'], // chunk name specified in entry point
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Kiwi',
+      description: 'This is my first webpack test run project: kiwi page',
+      template: 'src/page-template.hbs',
+      filename: '../kiwi.html',
+      chunks: ['kiwi'], // chunk name specified in entry point
     })
   ]
 };
