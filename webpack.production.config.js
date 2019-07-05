@@ -4,16 +4,29 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    'hello-world': './src/hello-world.js',
+    'kiwi': './src/kiwi.js'
+  },
   output: {
     // content hash for browser caching
-    filename: 'bundle.[contenthash].js',
+    // name: 2 entry points
+    filename: '[name].[contenthash].js',
     // has to be absolute path
     path: path.resolve(__dirname, './dist'),
     publicPath: './dist/'
     // publicPath: 'https://webpacktesttutorial.com'
   },
   mode: 'production',
+  // extract common dependencies of different code-split chunks
+  // into its own bundle instead of downloading two copies of dependency
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+      minSize: 10000,
+      automaticNameDelimiter: "_"
+    }
+  },
   module: {
     rules: [
       {
@@ -56,7 +69,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'styles.[contenthash].css'
+      filename: '[name].[contenthash].css'
     }),
     // Cleans all the files in ./dist
     // before creating new bundle/style.css files
@@ -69,10 +82,18 @@ module.exports = {
     //   ]
     // })
     new HtmlWebpackPlugin({
-      title: 'Webpack Test',
-      description: 'This is my first webpack test run project.',
-      template: 'src/index.hbs',
-      filename: '../index.html'
+      title: 'Hello-world',
+      description: 'This is my first webpack test run project: hello-world page',
+      template: 'src/page-template.hbs',
+      filename: '../hello-world.html',
+      chunks: ['hello-world', 'hello-world_kiwi'], // chunk name specified in entry point
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Kiwi',
+      description: 'This is my first webpack test run project: kiwi page',
+      template: 'src/page-template.hbs',
+      filename: '../kiwi.html',
+      chunks: ['kiwi', 'hello-world_kiwi'], // chunk name specified in entry point
     })
   ]
 };

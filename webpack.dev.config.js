@@ -3,7 +3,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/hello-world.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './dist'),
@@ -13,7 +13,7 @@ module.exports = {
   mode: 'development',
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),
-    index: 'index.html',
+    index: 'hello-world.js.html',
     port: 9000
   },
   module: {
@@ -70,8 +70,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Webpack Test',
       description: 'This is my first webpack test run project.',
-      template: 'src/index.hbs',
-      filename: 'index.html'
+      template: 'src/page-template.hbs',
+      filename: 'hello-world.js.html'
     })
   ]
 };
